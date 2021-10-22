@@ -27,13 +27,11 @@ int topOfStack(int *STACK) {
 }
 
 bool stackIsEmpty() {
-    if(head == 0) return true;
-    return false;
+    return head == 0;
 }
 
 bool stackIsFull() {
-    if(head > SIZE_OF_STACK) return true;
-    return false;
+    return head > SIZE_OF_STACK;
 }
 
 int main(void) {
@@ -41,6 +39,9 @@ int main(void) {
     scanf("%d", &SIZE_OF_STACK);
     int STACK[SIZE_OF_STACK];
 
-    
+    while(true) {
+        // do whatever operations necessary
+    }
+
     return 0;
 }
