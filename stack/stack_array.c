@@ -1,7 +1,7 @@
 /**
- * @file 
+ * @file
  * @brief A Stack implementation using array
- * @author Mat: FE20A101
+ * @author Matricule: FE20A101
  *         Name: RANDY SUSUNG NESINYU KWALAR
  */
 
@@ -14,8 +14,8 @@ int HEAD = 0; // The index of the head of Stack
 int SIZE; // The total size of the stack
 
 /**
- * @brief Returns the size of the stack
- * @returns the size of the stack
+ * @brief Returns the number of elements in the stack
+ * @returns the number of elements in the stack
  */
 int sizeOfStack() {
     return HEAD;
@@ -125,35 +125,35 @@ void display(int *stack) {
 void test(void) {
     // The following lines tests the program for correct behaviour
     SIZE = 5;
-    int *stack = create(SIZE);
+    int *stack = create(SIZE); // Creates stack of size 5
 
-    assert(sizeOfStack() == 0);
-    assert(stackIsEmpty(stack) == true);
+    assert(sizeOfStack() == 0); // checks if the stack has no elements
+    assert(stackIsEmpty(stack) == true); // checks if the stack is empty
 
-    push(stack, -1);
-    push(stack, 5);
-    push(stack, 2);
+    push(stack, -1); // inserts -1 in to the stack
+    push(stack, 5); // inserts 5 in to the stack
+    push(stack, 2); // inserts 2 in to the stack
 
-    assert(sizeOfStack() == 3);
+    assert(sizeOfStack() == 3); // checks if there are 3 elements in stack
     
-    push(stack, 10);
-    push(stack, 35);
+    push(stack, 10); // inserts 10 in to the stack
+    push(stack, 35); // inserts 35 in to the stack
     
-    assert(sizeOfStack() == 5);
-    display(stack);
+    assert(sizeOfStack() == 5); // checks if there are 5 elements in stack
+    display(stack); // print content of stack
 
-    assert(stackIsFull(stack) == true);
+    assert(stackIsFull(stack) == true); // checks if stack is full
 
-    assert(topOfStack(stack) == 35);
+    assert(topOfStack(stack) == 35); // checks if element at top of stack is 35
+    assert(pop(stack) == 35); // checks if pop returns 35
 
-    assert(pop(stack) == 35);
-    assert(topOfStack(stack) == 10);
-    assert(pop(stack) == 10);
+    assert(topOfStack(stack) == 10); // checks if element at top of stack is 10
+    assert(pop(stack) == 10); // checks if pop returns 10
 
-    assert(stackIsEmpty(stack) == false);
-    display(stack);
+    assert(stackIsEmpty(stack) == false); // checks if stack is not empty
+    display(stack); // print content of stack
 
-    free(stack);
+    free(stack); // de-allocates memory given to stack
 }
 
 /**
@@ -164,5 +164,3 @@ int main(void) {
     test(); // runs self-test implementation of the program
     return 0;
 }
-
-
