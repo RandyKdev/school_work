@@ -1,7 +1,7 @@
 /**
  * @file 
  * @brief A Queue implementation using array
- * @author Mat: FE20A101
+ * @author Matricule: FE20A101
  *         Name: RANDY SUSUNG NESINYU KWALAR
  */
 
@@ -15,8 +15,8 @@ int END = -1; // The index of the end of queue
 int SIZE; // the total size of the queue
 
 /**
- * @brief Returns the size of the queue
- * @returns the size of the queue
+ * @brief Returns the number of elements in the queue
+ * @returns the number of elements in the queue
  */
 int sizeOfQueue() {
     return END - HEAD + 1;
@@ -59,7 +59,7 @@ int *create(int size) {
 
 /**
  * @brief Inserts an element at the end of the queue
- * @param stack the pointer to the queue
+ * @param queue the pointer to the queue
  * @param element the element to be inserted in to the queue
  * @returns void
  */
@@ -74,7 +74,7 @@ void enqueue(int *queue, int element) {
 
 /**
  * @brief Returns and removes the element at the head of the queue
- * @param stack the pointer to the queue
+ * @param queue the pointer to the queue
  * @returns NULL if queue is empty
  * @returns the element at the head of the queue if it is not empty
  */
@@ -88,7 +88,7 @@ int dequeue(int *queue) {
 
 /**
  * @brief Displays the content of the queue
- * @param stack the pointer to the queue
+ * @param queue the pointer to the queue
  * @returns void
  */
 void display(int *queue) {
@@ -106,7 +106,7 @@ void display(int *queue) {
 
 /**
  * @brief Returns the element at the head of queue without removing it
- * @param stack the pointer to the queue 
+ * @param queue the pointer to the queue 
  * @returns NULL if the queue is empty
  * @returns The element at the head of the queue if it is not empty
  */
@@ -120,7 +120,7 @@ int headOfQueue(int *queue) {
 
 /**
  * @brief Returns the element at the end of queue without removing it
- * @param stack the pointer to the queue 
+ * @param queue the pointer to the queue 
  * @returns NULL if the queue is empty
  * @returns The element at the end of the queue if it is not empty
  */
@@ -138,36 +138,40 @@ int endOfQueue(int *queue) {
  */
 void test(void) {
     // The following lines tests the program for correct behaviour
-    SIZE = 5;
-    int *queue = create(SIZE);
+    SIZE = 10;
+    int *queue = create(SIZE); // Creates queue of size 5
 
-    assert(sizeOfQueue() == 0);
-    assert(queueIsEmpty(queue) == true);
+    assert(sizeOfQueue() == 0); // checks if the queue has no elements
+    assert(queueIsEmpty(queue) == true); // checks if the queue is empty
 
-    enqueue(queue, -1);
-    enqueue(queue, 5);
-    enqueue(queue, 2);
+    enqueue(queue, -1); // inserts -1 in to the queue
+    enqueue(queue, 5); // inserts 5 in to the queue
+    enqueue(queue, 2); // inserts 2 in to the queue
 
-    assert(sizeOfQueue() == 3);
+    assert(sizeOfQueue() == 3); // checks if there are 3 elements in queue
     
-    enqueue(queue, 10);
-    enqueue(queue, 35);
+    enqueue(queue, 10); // inserts 10 in to the queue
+    enqueue(queue, 35); // inserts 35 in to the queue
     
-    assert(sizeOfQueue() == 5);
-    display(queue);
+    assert(sizeOfQueue() == 5); // checks if there are 5 elements in queue
+    display(queue); // print content of queue
 
-    assert(queueIsFull(queue) == true);
+    assert(queueIsFull(queue) == false); // checks if queue is not full
 
-    assert(headOfQueue(queue) == -1);
+    assert(headOfQueue(queue) == -1); // checks if element at head of queue is -1
+    assert(dequeue(queue) == -1); // checks if dequeue returns -1
+    
+    assert(headOfQueue(queue) == 5); // checks if element at head of queue is 5
+    assert(dequeue(queue) == 5); // checks if dequeue returns 5
 
-    assert(dequeue(queue) == -1);
-    assert(headOfQueue(queue) == 5);
-    assert(dequeue(queue) == 5);
+    assert(endOfQueue(queue) == 35); // checks if element at end of queue is 35
+    enqueue(queue, 40); // inserts 40 in to the queue
+    assert(endOfQueue(queue) == 40); // checks if element at end of queue is 40
 
-    assert(queueIsEmpty(queue) == false);
-    display(queue);
+    assert(queueIsEmpty(queue) == false); // checks if queue is not empty
+    display(queue); // print content of queue
 
-    free(queue);
+    free(queue); // de-allocates memory given to queue
 }
 
 /**
