@@ -1,8 +1,6 @@
 /**
  * @file
  * @brief A Stack implementation using array
- * @author Matricule: FE20A101
- *         Name: RANDY SUSUNG NESINYU KWALAR
  */
 
 #include <stdio.h> // for IO operations
