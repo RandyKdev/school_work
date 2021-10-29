@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <assert.h>
 
 int HEAD = 0;
 
@@ -12,18 +13,44 @@ bool stackIsEmpty(int *stack);
 bool stackIsFull(int *stack);
 void display(int *stack);
 
+void test(void) {
+    int size = 5;
+    int *stack = create(size);
+    assert(sizeOfStack(stack) == size);
+    assert(stackIsEmpty == true);
+
+    push(stack, -1);
+    push(stack, 5);
+    push(stack, 2);
+    push(stack, 10);
+    push(stack, 35);
+
+    assert(stackIsFull(stack) == true);
+
+    push(stack, 50);
+    assert(topOfStack(stack) == 35);
+
+    assert(pop(stack) == 2);
+    assert(topOfStack(stack) == 5);
+    assert(pop(stack) == 5);
+
+    assert(stackIsEmpty(stack) == false);
+
+    free(stack);
+
+}
+
 int main(void) {
+
+    // This is to test the implementation
+    test();
+
     int size;
     printf("Enter the size of stack: ");
     scanf("%d", &size);
     int *stack = create(size);
 
-    while(true) {
-        // do whatever operations necessary
-    }
-
     free(stack);
-
     return 0;
 }
 
