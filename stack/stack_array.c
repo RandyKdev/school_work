@@ -1,107 +1,168 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <assert.h>
+/**
+ * @file 
+ * @brief A Stack implementation using array
+ * @author Mat: FE20A101
+ *         Name: RANDY SUSUNG NESINYU KWALAR
+ */
 
-int HEAD = 0;
+#include <stdio.h> // for IO operations
+#include <stdbool.h> // for bool data type
+#include <assert.h> // for assert function (for tests)
+#include <stdlib.h> // for the malloc and free functions
 
-int *create(int size);
-int sizeOfStack(int *stack);
-int pop(int *stack);
-void push(int *stack, int element);
-int topOfStack(int *stack);
-bool stackIsEmpty(int *stack);
-bool stackIsFull(int *stack);
-void display(int *stack);
+int HEAD = 0; // The index of the head of Stack
+int SIZE; // The total size of the stack
 
-void test(void) {
-    int size = 5;
-    int *stack = create(size);
-    assert(sizeOfStack(stack) == size);
-    assert(stackIsEmpty == true);
-
-    push(stack, -1);
-    push(stack, 5);
-    push(stack, 2);
-    push(stack, 10);
-    push(stack, 35);
-
-    assert(stackIsFull(stack) == true);
-
-    push(stack, 50);
-    assert(topOfStack(stack) == 35);
-
-    assert(pop(stack) == 2);
-    assert(topOfStack(stack) == 5);
-    assert(pop(stack) == 5);
-
-    assert(stackIsEmpty(stack) == false);
-
-    free(stack);
-
+/**
+ * @brief Returns the size of the stack
+ * @returns the size of the stack
+ */
+int sizeOfStack() {
+    return HEAD;
 }
 
-int main(void) {
-
-    // This is to test the implementation
-    test();
-
-    int size;
-    printf("Enter the size of stack: ");
-    scanf("%d", &size);
-    int *stack = create(size);
-
-    free(stack);
-    return 0;
+/**
+ * @brief Checks if the stack is empty
+ * @returns true if the stack is empty
+ * @returns false if the stack is not empty
+ */
+bool stackIsEmpty(int *stack) {
+    return sizeOfStack() == 0;
 }
 
+/**
+ * @brief Checks if the stack is full
+ * @param stack the pointer to the stack 
+ * @returns true if the stack is full
+ * @returns false if the stack is not full
+ */
+bool stackIsFull(int *stack) {
+    return sizeOfStack() == SIZE;
+}
+
+/**
+ * @brief Creates a stack of a particular size
+ * @param size the size of the stack to be created
+ * @returns NULL if there is not memory available to create the stack
+ * @returns the pointer to newly created stack of `size`
+ */
 int *create(int size) {
     int *stack = (int *) malloc(sizeof(int) * size);
+
+    if(stack == NULL) {
+        printf("No memory available, could not create Stack \n");
+        return NULL;
+    }
+        
     return stack;
 }
 
-int sizeOfStack(int *stack) {
-    return sizeof(stack) / sizeof(stack[0]);
-}
-
+/**
+ * @brief Returns and removes the element at the top stack
+ * @param stack the pointer to the stack
+ * @returns NULL if stack is empty
+ * @returns the element at the top of the stack if it is not empty
+ */
 int pop(int *stack) {
     if(stackIsEmpty(stack)) {
         printf("Underflow Error: The stack is empty \n");
-        return;
+    } else {
+        return stack[--HEAD];
     }
-
-    return stack[--HEAD];
 }
 
+/**
+ * @brief Inserts an element in to the stack
+ * @param stack the pointer to the stack
+ * @param element the element to be inserted in to the stack
+ * @returns void
+ */
 void push(int *stack, int element) {
     if(stackIsFull(stack)) {
         printf("Overflow Error: The stack is full \n");   
         return;
     }
-
+    
     stack[HEAD++] = element;
 }
 
+/**
+ * @brief Returns the element at the top of stack without removing it
+ * @param stack the pointer to the stack 
+ * @returns NULL if the stack is empty
+ * @returns The element at the top of the stack if it is not empty
+ */
 int topOfStack(int *stack) {
     if(stackIsEmpty(stack)) {
         printf("Underflow Error: The stack is empty \n");  
+    } else {
+        return stack[HEAD - 1];
+    }
+}
+
+/**
+ * @brief Displays the content of the stack
+ * @param stack the pointer to the stack 
+ * @returns void
+ */
+void display(int *stack) {
+    if(stackIsEmpty(stack)) {
+        printf("The Stack is empty \n");
         return;
     }
 
-    return stack[HEAD - 1];
-}
-
-void display(int *stack) {
     printf("Stack contents: ");
     for(int i = 0; i < HEAD; i++) {
         printf(" %d", stack[i]);
     }
-    printf("<- HEAD \n");
+    printf(" <- HEAD \n");
 }
 
-bool stackIsEmpty(int *stack) {
-    return HEAD == 0;
+/**
+ * @brief Self-test Implementations
+ * @returns void
+ */
+void test(void) {
+    // The following lines tests the program for correct behaviour
+    SIZE = 5;
+    int *stack = create(SIZE);
+
+    assert(sizeOfStack() == 0);
+    assert(stackIsEmpty(stack) == true);
+
+    push(stack, -1);
+    push(stack, 5);
+    push(stack, 2);
+
+    assert(sizeOfStack() == 3);
+    
+    push(stack, 10);
+    push(stack, 35);
+    
+    assert(sizeOfStack() == 5);
+    display(stack);
+
+    assert(stackIsFull(stack) == true);
+
+    assert(topOfStack(stack) == 35);
+
+    assert(pop(stack) == 35);
+    assert(topOfStack(stack) == 10);
+    assert(pop(stack) == 10);
+
+    assert(stackIsEmpty(stack) == false);
+    display(stack);
+
+    free(stack);
 }
 
-bool stackIsFull(int *stack) {
-    return HEAD > sizeOfStack(stack);
+/**
+ * @brief Main function
+ * @returns 0 on exit
+ */
+int main(void) {
+    test(); // runs self-test implementation of the program
+    return 0;
 }
+
+
