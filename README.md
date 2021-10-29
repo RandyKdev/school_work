@@ -1,2 +1,2 @@
-# school_work_C
-Programs done while in UB, FET
+# school_work
+Programs given in school, UB.
