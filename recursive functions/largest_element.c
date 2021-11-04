@@ -1,21 +1,37 @@
-#include<assert.h>
+/**
+ * @file
+ * @brief A recursive function to find the position of the largest element in an array of integers
+ */
 
-int indexOfFirstLargestElem(int arr[], int arrSize, int index, int indexOfLargest) {
+#include <assert.h> // for assert function (for tests)
 
+/**
+ * @brief Finds the index of the first largest element in an array
+ * @param array The list of elements 
+ * @param arrSize The length of the `array`
+ * @param index the current index of the `array`
+ * @param indexOfFirstLargest the index of the current first largest element found
+ * @returns The index of the first largest element in `array`
+ */
+int indexOfFirstLargestElem(int array[], int arraySize, int index, int indexOfFirstLargest) {
     // Base case
-    if(index == arrSize - 1) {
-        return indexOfLargest;
+    if(index == arraySize - 1) {
+        return indexOfFirstLargest;
     }
 
     // Recursive case
-    if(arr[++index] > arr[indexOfLargest]) {
-        indexOfLargest = index;
+    if(array[++index] > array[indexOfFirstLargest]) {
+        indexOfFirstLargest = index;
     }
 
-    return indexOfFirstLargestElem(arr, arrSize, index, indexOfLargest);
+    return indexOfFirstLargestElem(array, arraySize, index, indexOfFirstLargest);
 }
 
-void test() {
+/**
+ * @brief Self-test Implementations
+ * @returns void
+ */
+void test(void) {
     int arrSize = 5;
 
     int arr[] = {0, 9, 8, 4, 3};
@@ -33,7 +49,11 @@ void test() {
     assert(indexLargest == 0);
 }
 
+/**
+ * @brief Main function
+ * @returns 0 on exit
+ */
 int main(void) {
-    test();
+    test(); // runs self-test implementation of the program
     return 0;
 }
