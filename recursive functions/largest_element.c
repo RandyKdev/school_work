@@ -10,7 +10,7 @@
  * @param array The list of elements 
  * @param arrSize The length of the `array`
  * @param index the current index of the `array`
- * @param indexOfFirstLargest the index of the current first largest element found
+ * @param indexOfFirstLargest the index of the current largest element found
  * @returns The index of the first largest element in `array`
  */
 int indexOfFirstLargestElem(int array[], int arraySize, int index, int indexOfFirstLargest) {
@@ -28,10 +28,35 @@ int indexOfFirstLargestElem(int array[], int arraySize, int index, int indexOfFi
 }
 
 /**
- * @brief Self-test Implementations
+ * @brief Finds the index of the last largest element in an array
+ * @param array The list of elements 
+ * @param arrSize The length of the `array`
+ * @param index the current index of the `array`
+ * @param indexOfFirstLargest the index of the current largest element found
+ * @returns The index of the last largest element in `array`
+ */
+int indexOfLastLargestElem(int array[], int arraySize, int index, int indexOfFirstLargest) {
+    // Base case
+    if(index == arraySize - 1) {
+        return indexOfFirstLargest;
+    }
+
+    // Recursive case
+    if(array[++index] >= array[indexOfFirstLargest]) {
+        indexOfFirstLargest = index;
+    }
+
+    return indexOfLastLargestElem(array, arraySize, index, indexOfFirstLargest);
+}
+
+
+/**
+ * @brief Self-test Implementations for indexOfFirstLargestElemFunction
  * @returns void
  */
-void test(void) {
+void testIndexOfFirstLargestElemFunction(void) {
+    // The following lines tests the program for correct 
+    
     int arrSize = 5;
 
     int arr[] = {0, 9, 8, 4, 3};
@@ -50,10 +75,36 @@ void test(void) {
 }
 
 /**
+ * @brief Self-test Implementations for indexOfLastLargestElemFunction
+ * @returns void
+ */
+void testIndexOfLastLargestElemFunction(void) {
+    // The following lines tests the program for correct 
+
+    int arrSize = 5;
+
+    int arr[] = {0, 9, 8, 4, 3};
+    int indexLargest = indexOfLastLargestElem(arr, arrSize, 0, 0);
+    assert(indexLargest == 1);
+
+    arrSize = 5;
+    int arr1[] = {0, 9, 10, 10, 3};
+    indexLargest = indexOfLastLargestElem(arr1, arrSize, 0, 0);
+    assert(indexLargest == 3);
+
+    arrSize = 1;
+    int arr2[] = {0};
+    indexLargest = indexOfLastLargestElem(arr2, arrSize, 0, 0);
+    assert(indexLargest == 0);
+}
+
+/**
  * @brief Main function
  * @returns 0 on exit
  */
 int main(void) {
-    test(); // runs self-test implementation of the program
+    // runs self-test implementation of the program
+    testIndexOfFirstLargestElemFunction();
+    testIndexOfLastLargestElemFunction();
     return 0;
 }
