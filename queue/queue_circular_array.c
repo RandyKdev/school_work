@@ -154,7 +154,7 @@ void test(void) {
     assert(sizeOfQueue() == 5); // checks if there are 5 elements in queue
     display(queue); // print content of queue
 
-    assert(queueIsFull(queue) == true); // checks if queue is not full
+    assert(queueIsFull(queue) == true); // checks if queue is full
 
     assert(headOfQueue(queue) == -1); // checks if element at head of queue is -1
     assert(dequeue(queue) == -1); // checks if dequeue returns -1
