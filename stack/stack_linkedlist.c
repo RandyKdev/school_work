@@ -56,6 +56,7 @@ struct node *createNode(int data) {
  * @returns NULL if stack is empty
  * @returns the element at the top of the stack if it is not empty
  */
+// todo: Make pop functional
 int pop(struct node *stack) {
     if(stackIsEmpty(stack)) {
         printf("Underflow Error: The stack is empty \n");
@@ -125,36 +126,6 @@ void displayNodes(struct node *node) {
  */
 void test(void) {
     // The following lines tests the program for correct behaviour
-    SIZE = 5;
-    int *stack = create(SIZE); // Creates stack of size 5
-
-    assert(sizeOfStack() == 0); // checks if the stack has no elements
-    assert(stackIsEmpty(stack) == true); // checks if the stack is empty
-
-    push(stack, -1); // inserts -1 in to the stack
-    push(stack, 5); // inserts 5 in to the stack
-    push(stack, 2); // inserts 2 in to the stack
-
-    assert(sizeOfStack() == 3); // checks if there are 3 elements in stack
-    
-    push(stack, 10); // inserts 10 in to the stack
-    push(stack, 35); // inserts 35 in to the stack
-    
-    assert(sizeOfStack() == 5); // checks if there are 5 elements in stack
-    display(stack); // print content of stack
-
-    assert(stackIsFull(stack) == true); // checks if stack is full
-
-    assert(topOfStack(stack) == 35); // checks if element at top of stack is 35
-    assert(pop(stack) == 35); // checks if pop returns 35
-
-    assert(topOfStack(stack) == 10); // checks if element at top of stack is 10
-    assert(pop(stack) == 10); // checks if pop returns 10
-
-    assert(stackIsEmpty(stack) == false); // checks if stack is not empty
-    display(stack); // print content of stack
-
-    free(stack); // de-allocates memory given to stack
 }
 
 /**
