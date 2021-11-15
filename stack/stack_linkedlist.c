@@ -13,9 +13,6 @@ struct node {
     struct node *next;
 };
 
-// int HEAD = 0; // The index of the head of Stack
-// int SIZE; // The total size of the stack
-
 /**
  * @brief Returns the number of elements in the stack
  * @returns the number of elements in the stack
@@ -33,16 +30,6 @@ int sizeOfStack(struct node *stack, int size) {
 bool stackIsEmpty(struct node *stack) {
     return stack == NULL;
 }
-
-/**
- * @brief Checks if the stack is full
- * @param stack the pointer to the stack 
- * @returns true if the stack is full
- * @returns false if the stack is not full
- */
-// bool stackIsFull(int *stack) {
-//     return sizeOfStack() == SIZE;
-// }
 
 /**
  * @brief Creates a stack of a particular size
