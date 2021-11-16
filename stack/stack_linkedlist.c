@@ -8,6 +8,7 @@
 #include <assert.h> // for assert function (for tests)
 #include <stdlib.h> // for the malloc and free functions
 
+// Node structure for linked list
 struct node {
     int data;
     struct node *next;
@@ -17,9 +18,11 @@ struct node {
  * @brief Returns the number of elements in the stack
  * @returns the number of elements in the stack
  */
-int sizeOfStack(struct node *stack, int size) {
-    if(stack == NULL) return size;
-    return sizeOfStack(stack, size + 1);
+int sizeOfStack(struct node *stack) {
+    int size;
+    for(size = 0; stack != NULL; stack = stack->next, size++);
+    
+    return size;
 }
 
 /**
@@ -42,11 +45,9 @@ struct node *createNode(int data) {
 
     if(node == NULL) {
         printf("No memory available, could not create Stack \n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
 
-    node->data = data;
-        
     return node;
 }
 
@@ -56,14 +57,14 @@ struct node *createNode(int data) {
  * @returns NULL if stack is empty
  * @returns the element at the top of the stack if it is not empty
  */
-// todo: Make pop functional
-int pop(struct node *stack) {
-    if(stackIsEmpty(stack)) {
+int pop(struct node **stack) {
+    if(stackIsEmpty(*stack)) {
         printf("Underflow Error: The stack is empty \n");
     } else {
-        int data = stack->data;
-        struct node* temp = stack->next;
-        free(stack);
+        int data = (*stack)->data;
+        struct node* temp = (*stack)->next;
+        free(*stack);
+        *stack = temp;
         return data;
     }
 }
@@ -77,6 +78,7 @@ int pop(struct node *stack) {
 struct node* push(struct node *stack, int data) {
     struct node *newNode = createNode(data);
 
+    newNode->data = data;
     newNode->next = stack;
     return newNode;
 }
@@ -95,6 +97,16 @@ int topOfStack(struct node *stack) {
     }
 }
 
+
+void displayNodes(struct node *node) {
+    if(node == NULL) {
+        return;
+    }
+
+    printf("%d ", node->data);
+    displayNodes(node->next);
+}
+
 /**
  * @brief Displays the content of the stack
  * @param stack the pointer to the stack 
@@ -107,18 +119,11 @@ void displayStack(struct node *stack) {
     }
 
     printf("Stack contents:\n");
-    printf("HEAD  ->  \n");
+    printf("HEAD -> ");
     displayNodes(stack);
+    printf("\n");
 }
 
-void displayNodes(struct node *node) {
-    if(node == NULL) {
-        return;
-    }
-
-    printf("%d ", node->data);
-    displayNode(node->next);
-}
 
 /**
  * @brief Self-test Implementations
@@ -126,6 +131,27 @@ void displayNodes(struct node *node) {
  */
 void test(void) {
     // The following lines tests the program for correct behaviour
+    struct node *head = NULL;
+
+    assert(stackIsEmpty(head) == true);
+    
+    head = push(head, 1);
+    head = push(head, 2);
+    head = push(head, 3);
+    head = push(head, 4);
+    head = push(head, 5);
+
+    assert(stackIsEmpty(head) == false);
+    
+    assert(sizeOfStack(head) == 5);
+    displayStack(head);
+
+    assert(topOfStack(head) == 5);
+    assert(pop(&head) == 5);
+    displayStack(head);
+
+    head = push(head, 6);
+    displayStack(head);
 }
 
 /**
