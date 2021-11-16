@@ -8,7 +8,10 @@
 #include <assert.h> // for assert function (for tests)
 #include <stdlib.h> // for the malloc and free functions
 
-// Node structure for linked list
+/**
+ * @brief Structure representing a node in a linked list
+ * @details Contains two fields, the data and next field
+ */
 struct node {
     int data;
     struct node *next;
@@ -97,7 +100,11 @@ int topOfStack(struct node *stack) {
     }
 }
 
-
+/**
+ * @brief Prints the individual elements of the stack
+ * @param node the node to print
+ * @returns void
+ */
 void displayNodes(struct node *node) {
     if(node == NULL) {
         return;
@@ -142,7 +149,7 @@ void test(void) {
     head = push(head, 5);
 
     assert(stackIsEmpty(head) == false);
-    
+
     assert(sizeOfStack(head) == 5);
     displayStack(head);
 
