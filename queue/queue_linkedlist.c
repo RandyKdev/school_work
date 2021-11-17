@@ -1,6 +1,6 @@
 /**
  * @file 
- * @brief A Queue implementation using array
+ * @brief A Queue implementation using a linked list
  */
 
 #include <stdio.h> // for IO operations
@@ -8,6 +8,9 @@
 #include <assert.h> // for assert function (for tests)
 #include <stdlib.h> // for the malloc and free functions
 
+/**
+ * @brief Structure of a node in the linked list
+ */
 struct node {
     int data;
     struct node *next;
@@ -15,16 +18,19 @@ struct node {
 
 /**
  * @brief Returns the number of elements in the queue
+ * @param queue pointer to the head of the queue
  * @returns the number of elements in the queue
  */
 int sizeOfQueue(struct node *queue) {
     int size;
     for(size = 0; queue != NULL; queue = queue->next, size++);
+
     return size;
 }
 
 /**
  * @brief Checks if the queue is empty
+ * @param queue pointer to the head of the queue
  * @returns true if the queue is empty
  * @returns false if the queue is not empty
  */
@@ -33,10 +39,9 @@ bool queueIsEmpty(struct node *queue) {
 }
 
 /**
- * @brief Creates a queue of a particular size
- * @param size the size of the queue to be created
+ * @brief Creates a node that would be part of the linked list
+ * @returns the pointer to newly created node
  * @returns NULL if there is not memory available to create the queue
- * @returns the pointer to newly created queue of `size`
  */
 struct node* createNode() {
     struct node *node = (struct node *) malloc(sizeof(struct node));
@@ -49,6 +54,12 @@ struct node* createNode() {
     return node;
 }
 
+/**
+ * @brief Inserts `newNode` to the end of `queue`
+ * @param queue pointer to the head of the queue
+ * @param newNode the new node to insert in to the queue
+ * @returns void
+ */
 void insertNode(struct node *queue, struct node *newNode) {
     if(queue->next == NULL) {
         queue->next = newNode;
@@ -61,14 +72,16 @@ void insertNode(struct node *queue, struct node *newNode) {
 /**
  * @brief Inserts an element at the end of the queue
  * @param queue the pointer to the queue
- * @param element the element to be inserted in to the queue
+ * @param data the data to be inserted in to the queue
  * @returns void
  */
 struct node* enqueue(struct node *queue, int data) {
     struct node *newNode = createNode();
     newNode->data = data;
     newNode->next = NULL;
+
     if(queue == NULL) return newNode;
+    
     insertNode(queue, newNode);
     return queue;
 }
@@ -77,9 +90,9 @@ struct node* enqueue(struct node *queue, int data) {
 
 /**
  * @brief Returns and removes the element at the head of the queue
- * @param queue the pointer to the queue
- * @returns NULL if queue is empty
+ * @param queue the pointer to the pointer of the head of queue
  * @returns the element at the head of the queue if it is not empty
+ * @returns NULL if queue is empty
  */
 int dequeue(struct node **queue) {
     if(queueIsEmpty(*queue)) {
@@ -87,7 +100,9 @@ int dequeue(struct node **queue) {
     } else {
         int data = (*queue)->data;
         struct node *tmp = (*queue)->next;
+        
         free((*queue));
+        
         (*queue) = tmp;
         return data;
     }
@@ -95,7 +110,7 @@ int dequeue(struct node **queue) {
 
 /**
  * @brief Displays the content of the queue
- * @param queue the pointer to the queue
+ * @param queue the pointer to the head of the queue
  * @returns void
  */
 void display(struct node *queue) {
@@ -106,18 +121,20 @@ void display(struct node *queue) {
 
     printf("Queue contents: ");
     printf("HEAD -> ");
+
     while(queue != NULL) {
         printf("%d ", queue->data);
         queue = queue->next;
     }
+
     printf(" <- TAIL\n");
 }
 
 /**
  * @brief Returns the element at the head of queue without removing it
- * @param queue the pointer to the queue 
- * @returns NULL if the queue is empty
+ * @param queue the pointer to the head of the queue 
  * @returns The element at the head of the queue if it is not empty
+ * @returns NULL if the queue is empty
  */
 int headOfQueue(struct node *queue) {
     if(queueIsEmpty(queue)) {
@@ -129,9 +146,9 @@ int headOfQueue(struct node *queue) {
 
 /**
  * @brief Returns the element at the end of queue without removing it
- * @param queue the pointer to the queue 
- * @returns NULL if the queue is empty
+ * @param queue the pointer to the head of the queue 
  * @returns The element at the end of the queue if it is not empty
+ * @returns NULL if the queue is empty
  */
 int endOfQueue(struct node *queue) {
     if(queueIsEmpty(queue)) {
