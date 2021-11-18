@@ -84,7 +84,7 @@ struct node* push(struct node *stack, int data) {
 
     newNode->data = data;
     newNode->next = stack;
-    
+
     return newNode;
 }
 
@@ -126,7 +126,7 @@ void display(struct node *stack) {
 
 /**
  * @brief Free memory allocated for stack
- * @param queue the pointer to the head node of the stack
+ * @param stack the pointer to the head node of the stack
  * @returns void
  */
 void deallocate(struct node *stack) {
