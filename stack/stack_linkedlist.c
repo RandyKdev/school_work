@@ -101,20 +101,6 @@ int topOfStack(struct node *stack) {
 }
 
 /**
- * @brief Prints the individual elements of the stack
- * @param node the node to print
- * @returns void
- */
-void displayNodes(struct node *node) {
-    if(node == NULL) {
-        return;
-    }
-
-    printf("%d ", node->data);
-    displayNodes(node->next);
-}
-
-/**
  * @brief Displays the content of the stack
  * @param stack the pointer to the stack 
  * @returns void
@@ -125,9 +111,14 @@ void displayStack(struct node *stack) {
         return;
     }
 
-    printf("Stack contents:\n");
+    printf("Stack contents: ");
     printf("HEAD -> ");
-    displayNodes(stack);
+
+    while(stack != NULL) {
+        printf("%d ", stack->data);
+        stack = stack->next;
+    }
+
     printf("\n");
 }
 
