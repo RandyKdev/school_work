@@ -170,7 +170,7 @@ void deallocate(struct node *queue) {
  */
 void test(void) {
     // The following lines tests the program for correct behaviour
-    struct node *queue = NULL;
+    struct node *queue = NULL; // Initializes a pointer to a queue
 
     assert(queueIsEmpty(queue) == true);
 
