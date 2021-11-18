@@ -55,21 +55,6 @@ struct node* createNode() {
 }
 
 /**
- * @brief Inserts `newNode` to the end of `queue`
- * @param queue pointer to the head of the queue
- * @param newNode the new node to insert in to the queue
- * @returns void
- */
-void insertNode(struct node *queue, struct node *newNode) {
-    if(queue->next == NULL) {
-        queue->next = newNode;
-        return;
-    }
-
-    insertNode(queue->next, newNode);
-}
-
-/**
  * @brief Inserts an element at the end of the queue
  * @param queue the pointer to the queue
  * @param data the data to be inserted in to the queue
@@ -82,11 +67,16 @@ struct node* enqueue(struct node *queue, int data) {
 
     if(queue == NULL) return newNode;
     
-    insertNode(queue, newNode);
-    return queue;
+    struct node *orgQueue = queue;
+    
+    while(queue->next != NULL) {
+        queue = queue->next;
+    }
+
+    queue->next = newNode;
+
+    return orgQueue;
 }
-
-
 
 /**
  * @brief Returns and removes the element at the head of the queue
@@ -163,6 +153,18 @@ int endOfQueue(struct node *queue) {
 }
 
 /**
+ * @brief Free memory allocated for queue
+ * @param queue the pointer to the head node of the queue
+ * @returns void
+ */
+void deallocate(struct node *queue) {
+    if(queue == NULL) return;
+
+    deallocate(queue->next);
+    free(queue);
+}
+
+/**
  * @brief Self-test Implementations
  * @returns void
  */
@@ -197,7 +199,7 @@ void test(void) {
     assert(queueIsEmpty(queue) == false); // checks if queue is not empty
     display(queue); // print content of queue
 
-    free(queue); // de-allocates memory given to queue
+    deallocate(queue); // de-allocates memory given to queue
 }
 
 /**
