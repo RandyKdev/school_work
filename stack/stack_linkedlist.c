@@ -10,7 +10,6 @@
 
 /**
  * @brief Structure representing a node in a linked list
- * @details Contains two fields, the data and next field
  */
 struct node {
     int data;
@@ -66,7 +65,9 @@ int pop(struct node **stack) {
     } else {
         int data = (*stack)->data;
         struct node* temp = (*stack)->next;
+        
         free(*stack);
+
         *stack = temp;
         return data;
     }
@@ -83,6 +84,7 @@ struct node* push(struct node *stack, int data) {
 
     newNode->data = data;
     newNode->next = stack;
+    
     return newNode;
 }
 
@@ -105,7 +107,7 @@ int topOfStack(struct node *stack) {
  * @param stack the pointer to the stack 
  * @returns void
  */
-void displayStack(struct node *stack) {
+void display(struct node *stack) {
     if(stackIsEmpty(stack)) {
         printf("The Stack is empty \n");
         return;
@@ -122,6 +124,17 @@ void displayStack(struct node *stack) {
     printf("\n");
 }
 
+/**
+ * @brief Free memory allocated for stack
+ * @param queue the pointer to the head node of the stack
+ * @returns void
+ */
+void deallocate(struct node *stack) {
+    if(stack == NULL) return;
+
+    deallocate(stack->next);
+    free(stack);
+}
 
 /**
  * @brief Self-test Implementations
@@ -129,27 +142,33 @@ void displayStack(struct node *stack) {
  */
 void test(void) {
     // The following lines tests the program for correct behaviour
-    struct node *head = NULL;
+    struct node *stack = NULL; // Initializes a pointer to a stack
 
-    assert(stackIsEmpty(head) == true);
+    assert(sizeOfStack(stack) == 0); // checks if the stack has no elements
+    assert(stackIsEmpty(stack) == true); // checks if the stack is empty
+
+    stack = push(stack, -1); // inserts -1 in to the stack
+    stack = push(stack, 5); // inserts 5 in to the stack
+    stack = push(stack, 2); // inserts 2 in to the stack
+
+    assert(sizeOfStack(stack) == 3); // checks if there are 3 elements in stack
     
-    head = push(head, 1);
-    head = push(head, 2);
-    head = push(head, 3);
-    head = push(head, 4);
-    head = push(head, 5);
+    stack = push(stack, 10); // inserts 10 in to the stack
+    stack = push(stack, 35); // inserts 35 in to the stack
+    
+    assert(sizeOfStack(stack) == 5); // checks if there are 5 elements in stack
+    display(stack); // print content of stack
 
-    assert(stackIsEmpty(head) == false);
+    assert(topOfStack(stack) == 35); // checks if element at top of stack is 35
+    assert(pop(&stack) == 35); // checks if pop returns 35
 
-    assert(sizeOfStack(head) == 5);
-    displayStack(head);
+    assert(topOfStack(stack) == 10); // checks if element at top of stack is 10
+    assert(pop(&stack) == 10); // checks if pop returns 10
 
-    assert(topOfStack(head) == 5);
-    assert(pop(&head) == 5);
-    displayStack(head);
+    assert(stackIsEmpty(stack) == false); // checks if stack is not empty
+    display(stack); // print content of stack
 
-    head = push(head, 6);
-    displayStack(head);
+    deallocate(stack); // de-allocates memory given to stack
 }
 
 /**
