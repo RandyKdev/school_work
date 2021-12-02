@@ -97,16 +97,6 @@ int topOfStack(struct node *stack) {
     }
 }
 
-
-void displayNodes(struct node *node) {
-    if(node == NULL) {
-        return;
-    }
-
-    printf("%d ", node->data);
-    displayNodes(node->next);
-}
-
 /**
  * @brief Displays the content of the stack
  * @param stack the pointer to the stack 
@@ -120,7 +110,12 @@ void displayStack(struct node *stack) {
 
     printf("Stack contents:\n");
     printf("HEAD -> ");
-    displayNodes(stack);
+
+    while(stack != NULL) {
+        printf("%d ", stack->data);
+        stack = stack->next;
+    }
+
     printf("\n");
 }
 
@@ -131,27 +126,27 @@ void displayStack(struct node *stack) {
  */
 void test(void) {
     // The following lines tests the program for correct behaviour
-    struct node *head = NULL;
+    struct node *head = NULL; // sets head pointer to NULL
 
-    assert(stackIsEmpty(head) == true);
+    assert(stackIsEmpty(head) == true); // checks if stack is empty
     
-    head = push(head, 1);
-    head = push(head, 2);
-    head = push(head, 3);
-    head = push(head, 4);
-    head = push(head, 5);
+    head = push(head, 1); // inserts 1 in to stack
+    head = push(head, 2); // inserts 2 in to stack
+    head = push(head, 3); // inserts 3 in to stack
+    head = push(head, 4); // inserts 4 in to stack
+    head = push(head, 5); // inserts 5 in to stack
 
-    assert(stackIsEmpty(head) == false);
+    assert(stackIsEmpty(head) == false); // checks if stack is empty
     
-    assert(sizeOfStack(head) == 5);
-    displayStack(head);
+    assert(sizeOfStack(head) == 5); // checks if there are 5 elements in stack
+    displayStack(head); // display content of stack
 
-    assert(topOfStack(head) == 5);
-    assert(pop(&head) == 5);
-    displayStack(head);
+    assert(topOfStack(head) == 5); // checks if the element at the top of the stack is 5
+    assert(pop(&head) == 5); // pops element from the stack and checks if it is 5
+    displayStack(head); // display content of stack
 
-    head = push(head, 6);
-    displayStack(head);
+    head = push(head, 6); // inserts 6 in to stack
+    displayStack(head); // display content of stack
 }
 
 /**
