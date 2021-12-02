@@ -9,7 +9,7 @@
 #include <stdlib.h> // for the malloc and free functions
 
 /**
- * @brief Structure of a node in the linked list
+ * Structure of a node in the linked list
  */
 struct node {
     int data;
