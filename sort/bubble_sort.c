@@ -1,28 +1,33 @@
 /**
  * @file 
- * @brief A program to sort an array of elements using the selection sort algorithm
+ * @brief A program to sort an array of elements using the bubble sort algorithm
  */
 
 #include <assert.h> // for assert function (for tests)
+#include <stdbool.h> // for bool data type
 
 /**
- * @brief Sorts an array of integers using the selection sort algo
+ * @brief Sorts an array of integers using the bubble sort algo
  * @param arr the pointer to the array of elements
  * @param length the number of elements in the array
  * @returns void
  */
-void selectionSort(int arr[], int length) {
-    int posOfLargest, temp;
+void bubbleSort(int arr[], int length) {
+    bool swapped;
+    int temp;
     for(int i = 0; i < length; i++) {
-        posOfLargest = 0;
+        swapped = false;
         
-        for(int j = 0; j < length - i; j++) {
-            if(arr[j] > arr[posOfLargest]) posOfLargest = j;
+        for(int j = 0; j < length - i - 1; j++) {
+            if(arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = true;
+            }
         }
-        
-        temp = arr[length - i - 1];
-        arr[length - i - 1] = arr[posOfLargest];
-        arr[posOfLargest] = temp;
+
+        if(!swapped) break;
     }
 }
 
@@ -40,10 +45,10 @@ void test(void) {
     int solution1_2[] = {1,2,3,4,5}; // solution for test array 1 and 2
     int solution3[] = {-5,-4,-3,0,1,2}; // solution for test array 3
     
-    selectionSort(test1, 5); // sorts test array 1
-    selectionSort(test2, 5); // sorts test array 2
-    selectionSort(test3, 6); // sorts test array 3
-    selectionSort(test4, 1); // sorts test array 4
+    bubbleSort(test1, 5); // sorts test array 1
+    bubbleSort(test2, 5); // sorts test array 2
+    bubbleSort(test3, 6); // sorts test array 3
+    bubbleSort(test4, 1); // sorts test array 4
 
     // Checks if test array 1 and 2 has been correctly sorted
     for(int i = 0; i < 5; i++) {
