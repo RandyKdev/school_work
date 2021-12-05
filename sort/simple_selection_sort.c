@@ -1,6 +1,6 @@
 /**
  * @file 
- * @brief A program to sort an array of elements using the selection sort algorithm
+ * @brief A program to sort an array of elements using the simple selection sort algorithm
  */
 
 #include <assert.h> // for assert function (for tests)
