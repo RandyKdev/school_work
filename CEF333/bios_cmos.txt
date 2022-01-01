@@ -1,0 +1,9 @@
+To reset your CMOS by reseating the CMOS Battery, follow the steps below:
+
+  - Turn off your computer.
+  -  Disconnect your computer from the wall outlet.
+  -  Press the power button multiple times to clear any capacitors.
+  -  Find the CMOS battery on your motherboard. This is most commonly a CR2032 battery, a coin-sized battery as shown below. You’ll find it near the PCI Express slots on most motherboards.
+  -  Gently remove the CMOS battery. If it is secured by a metal clip, slide the battery out from under the clip. Take care not to bend the clip.
+  -  Wait a few minutes, then replace the CMOS battery.
+  -  Reboot your computer.
