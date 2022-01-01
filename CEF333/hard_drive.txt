@@ -1,0 +1,7 @@
+To Scan and Fix Hard Drives problems in windows 10 using the command line, follow the steps below
+
+  -  Right-click the Start menu and select, Windows PowerShell (Admin).
+  -  The next screen to appear is a User Account Control (UAC) window which will ask for permission to launch the Windows Command Processor and let it make changes to the PC. Select Yes.
+  -  Now, type “chkdsk c: /x /r“, without the quotes, to dismount the drive, scan it for errors, and repair it.
+  - The “/r” parameter performs the same tasks as “/f”, which fixes errors on the disk, and also tells CHKDSK to locate any bad sectors and recover any readable information it finds there. The “/x” parameter tells CHKDSK to dismount the drive (take it offline from the operating system) before the process begins.
+  - If you’re having issues with running the above command because the drive is in use by another process, that because you’re trying to scan your primary drive (boot drive), when it’s being used by the OS. Reboot into recovery mode to perform the scan or create a Windows Recovery Tool, to perform the process.
