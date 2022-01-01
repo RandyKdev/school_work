@@ -1,0 +1,16 @@
+To know the technical characteristics of your computer running windows, do the following steps:
+  -  On your keyboard, Press windows key + r, a small popup menu should appear
+  -  Type in "dxdiag" and press Enter
+  -  A window should open containing the techincal characteristics of your computer
+
+
+The technical characteristics of my computer are:
+ -  BIOS: DKCN51WW
+ -  System Type: 64-bit operating system, x64-based processor
+ -  Processor: Intel(R) Core(TM) i3-1005G1 CPU @ 1.20GHz (4 CPUs), ~1.2GHz
+ -  Memory: 4096MB RAM
+ -  Page file: 4612MB used, 4841MB available
+ -  DirectX Version: DirectX 12
+ -  Display Mode: 1366 x 768 (32 bit) (60Hz)
+ -  Display Memory (VRAM): 128MB
+ -  Shared Memory: 1945MB
