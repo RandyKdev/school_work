@@ -22,11 +22,9 @@ void get_next_argument(char *input, char *args[], char argc) {
 }
 
 void reset_arr(char *arr[]) {
-    int i = 0;
-    while(arr[i] != NULL && i < MAX_ARGS) {
+    for(int i = 0; arr[i] != NULL && i < MAX_ARGS; i++) {
         free(arr[i]);
         arr[i] = NULL;
-        i++;
     }
 }
 
@@ -76,20 +74,18 @@ bool is_history_command(char *args[]) {
 
 void print_arr(char *arr[]) {
     printf("osh> ");
-    int i  = 0;
-    while(arr[i] != NULL && i < MAX_ARGS) {
+
+    for(int i = 0; arr[i] != NULL && i < MAX_ARGS; i++) {
         printf("%s ", arr[i]);
-        i++;
     }
+
     printf("\n");
 }
 
 void copy_arr(char *dest[], char *src[]) {
-    int i = 0;
-    while(src[i] != NULL && i < MAX_ARGS) {
-        dest[i] = (char *) malloc((strlen(src[i]) + 1) * sizeof(char));
+    for(int i = 0; src[i] != NULL && i < MAX_ARGS; i++) {
+         dest[i] = (char *) malloc((strlen(src[i]) + 1) * sizeof(char));
         strcpy(dest[i], src[i]);
-        i++;
     }
 }
 
@@ -109,25 +105,24 @@ void prepare_history_command(char *args[], char *history[]) {
 
 void execute_command_in_child_process(char *args[], char *history[]) {
     if(is_history_command(args)) {
-        puts("history command");
         prepare_history_command(args, history);
     }
 
     int ampersand_location = ends_with_ampersand(args);
     if(ampersand_location) {
-        puts("ampersand found");
         free(args[ampersand_location]);
         args[ampersand_location] = NULL;
     }
 
     pid_t child_state = fork();
-    
+
     if (child_state == 0) {
+        // child process
         execvp(args[0], args);
     } else if (child_state == -1) {
         printf("Child process couldn't be created\n");
     } else {
-       
+       // parent process
         if (!ampersand_location) {
              printf("%d\n", ampersand_location);
             wait(NULL);
