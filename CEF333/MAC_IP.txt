@@ -1,0 +1,8 @@
+To find your MAC address on windows, do the following:
+  -  Right-click on the Start button and select Command Prompt from the menu
+  -  Type in "ipconfig /all" and press Enter. Your network configurations will display
+  -  Scroll down to your network adapter and look for the values next to "Physical Address," which is your MAC address
+
+
+My MAC address is 00-45-E2-26-8F-DB
+My IP address is 169.254.169.217
