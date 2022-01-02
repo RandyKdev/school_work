@@ -1,0 +1,47 @@
+To create a bootable flash in windows using just the command line, follow the steps below:
+
+  -  Insert your USB flash drive into your computer.
+  -  Open Start Menu and type "CMD" to find Command Prompt. Right click on Command Prompt and click Run as Administrator.
+Alternatively, you can also open the Command Prompt by pressing "Windows+R" then, Type "CMD" then, Press "Enter".
+  -  Once the Command Prompt window appears, type "diskpart" and hit enter. Wait until the diskpart utility starts running.
+  -  In the new diskpart window, type "list disk" and hit enter. It will show you all active disks on your computer.
+  -  Most probably, you will see two Disk types.
+Disk 0 is for the hard drive and,
+Disk 1 is for your USB Flash Drive with its total capacity.
+  -  Since we are going to work on to create bootable USB using CMD, we will work with Disk 1.
+  -  Type "select disk 1" in the same window and hit Enter. You will get a message ‘Disk 1 is now the selected disk’. That means, any further operation that you do will affect your disk 1 directly.
+  -  Type "clean" and hit Enter to remove all of the data in the USB drive. Clean command will format your bootable drive. You will get a message like ‘Diskpart succeeded in cleaning the disk’.
+  -  Type "create partition primary" and hit Enter. You will get a message like Diskpart succeeded in creating the specified partition.
+  -  Type "select partition 1" and hit Enter. It will choose partition 1 for setting up it as an active partition.
+  -  Next, type "active" and hit Enter. It will activate the current partition.
+  -  Now, type "format fs=ntfs quick" and hit Enter. This command will format your current partition as NTFS file system quickly.
+  -  Type exit and hit Enter. Exit command will close the Diskpart program but it doesn’t close the CMD window.
+  - Go to microsoft official site and download the windows 10 ISO file
+
+  Let us assume that the USB drive is the G: drive and the windows 10 ISO file is in a DVD drive has been assigned the letter E. And, you also have inserted a DVD inside the DVD drive from where you want to copy the data to create a bootable USB drive via CMD.
+
+  -  Just type "E:" then hit Enter, and then the active directory is changed to E.
+  -  Type "cd boot" and hit Enter. Now the active directory is changed to E:\boot>
+  -  Type "bootsect /nt60 g:" and hit Enter. It will create the boot sector on G: drive (USB Flash drive).
+  -  Type "exit" and hit Enter to close the Command Prompt.
+  - Type "copy e:\*.* /s/e/f g:" and then press Enter. Wait until all the files in the DVD installer are copied onto the flash drive. Please double check the drive letter of your USB and DVD. Here, here e is the drive letter of the DVD drive that holds the Windows ISO file, g is the drive letter that you assigned to the external USB Stick.
+
+So, this is how you can make a bootable USB drive without software which is ready to be used for installing Windows 10.
+
+
+To dual boot windows and linux on a computer running windows, follow the steps below:
+
+  -  Create a live USB or disk
+  -  Make a new partition for the Linux distro (advisable to be atleast 30GB)
+  -  Turn off computer
+  -  Boot in to live USB
+  -  Start the installation
+  -  Prepare the partition
+  -  This is the most important part of the whole installation. In the Installation Type window, choose Something Else
+  -  Create root, swap and home
+  -  Allocate atleast 15GB to root
+  -  Size of swap is same as your RAM
+  -  Allocate rest of space to home
+  -  Follow the trivial instructions
+
+At this point, the linux distro should be installed along side windows.
