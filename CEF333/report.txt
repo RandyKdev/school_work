@@ -1,0 +1,40 @@
+Title: A Report On My Work Experience in the Lab Evaluation
+
+Summary: The lab evaluation was divided in to two parts; Software and Hardware.
+The hardware part was carried out first, I was instructed by the lecturer to disassemble the system unit of a computer in a timeframe of 5 minutes, which I successfully did.
+For the software part, I was instructed by the lecturer to create an administrator account with specific username and password details and then, to turn on windows defender in the created account on a computer running Windows 7 which I successfully executed.
+
+Body: For the hardware exercise, I was given an already disconnected and isolated system unit.
+Below are the steps I did to disassemble the system unit:
+The screw on the back of the system unit was removed and the cover removed.
+The disk drive and hard disk drive were removed by unscrewing some screws and removing the front case of the system unit.
+The RAM modules were removed from their sockets by pushing the tabs, located at the end of the socket, down and away from the socket.
+The Power supply was removed by unscrewing some screws and unplugging the power cables connected to the motherboard.
+The heat sink was removed.
+The CPU fan and the Cabinet fan were removed.
+Lastly the motherboard was removed.
+
+All parts were safely and orderly placed on a flat surface to avoid damage.
+
+For the software exercise, I was given a computer running the Windows 7 Operating System, which was powered on and logged in to an admistrator account.
+Below are the steps I did to create an administrator account with specific username and password:
+Control Panel was opened from the Start menu.
+Navigated to User Accounts.
+Clicked Manage another account.
+Clicked Add.
+The desired username, domain and password was entered.
+Then, the Administrator option was selected.
+Clicked Finish
+
+Below are the steps I did to log in to the created account:
+Clicked Start.
+In the Start menu, next to the Shut down button, clicked the arrow icon that points to the right.
+Selected Switch user from the menu.
+Entered username and password and pressed enter.
+
+Below are the steps I did to turn on windows defender:
+Clicked Start.
+In the Start menu, searched "Computer Management" and opened it
+On the left pane, expanded the services and applications option
+Double clicked services
+On the right pane, Scrolled down to windows defender, right clicked on it and selected Start.
