@@ -105,7 +105,9 @@ void prepare_history_command(char *args[], char *history[]) {
 
 void execute_command_in_child_process(char *args[], char *history[]) {
     if(is_history_command(args)) {
-        prepare_history_command(args, history);
+        if(history[0] != NULL)
+            prepare_history_command(args, history);
+        else printf("No commands in history\n");
     }
 
     int ampersand_location = ends_with_ampersand(args);
@@ -124,7 +126,6 @@ void execute_command_in_child_process(char *args[], char *history[]) {
     } else {
        // parent process
         if (!ampersand_location) {
-             printf("%d\n", ampersand_location);
             wait(NULL);
         }
 
