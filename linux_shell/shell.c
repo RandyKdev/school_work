@@ -141,7 +141,10 @@ void prepare_redirect(char *args[], int redirect_location, int dup, int flag) {
 void execute_command_in_child_process(char *args[], char *history[]) {
     if(is_history_command(args)) {
         if(history[0] != NULL) prepare_history_command(args, history);
-        else printf("osh> No commands in history\n");
+        else {
+            printf("osh> No commands in history\n");
+            return;
+        }
     }
 
     int ampersand_location = ends_with_ampersand(args);
@@ -204,9 +207,12 @@ int main(void) {
 
         read_user_input(args);
 
+        if(strcmp(args[0], "exit") == 0) {
+            should_run = 0;
+            break;
+        } 
+        
         execute_command_in_child_process(args, history);
-
-        // should_run = 0;
     }
 
     return 0;
