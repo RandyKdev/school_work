@@ -5,6 +5,9 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+
 
 #define MAX_LINE 80
 #define MAX_ARGS MAX_LINE / 2 + 1
@@ -84,7 +87,7 @@ void print_arr(char *arr[]) {
 
 void copy_arr(char *dest[], char *src[]) {
     for(int i = 0; src[i] != NULL && i < MAX_ARGS; i++) {
-         dest[i] = (char *) malloc((strlen(src[i]) + 1) * sizeof(char));
+        dest[i] = (char *) malloc((strlen(src[i]) + 1) * sizeof(char));
         strcpy(dest[i], src[i]);
     }
 }
@@ -103,10 +106,30 @@ void prepare_history_command(char *args[], char *history[]) {
     copy_arr(args, history);
 }
 
+int redirection(char *args[], char *redirect) {
+    int i;
+    for(i = 0; args[i] != NULL && i < MAX_ARGS; i++) {
+        if(strcmp(args[i], redirect) == 0) {
+            return i;
+        }
+    }
+
+    return 0;
+}
+
+void prepare_redirect(char *args[], int redirect_location, int dup, int flag) {
+    int fileDescriptor = open(args[redirect_location + 1], flag, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    dup2(fileDescriptor, dup);
+    close(fileDescriptor);
+    free(args[redirect_location]);
+    free(args[redirect_location + 1]);
+    args[redirect_location] = NULL;
+    args[redirect_location + 1] = NULL;
+}
+
 void execute_command_in_child_process(char *args[], char *history[]) {
     if(is_history_command(args)) {
-        if(history[0] != NULL)
-            prepare_history_command(args, history);
+        if(history[0] != NULL) prepare_history_command(args, history);
         else printf("No commands in history\n");
     }
 
@@ -120,6 +143,17 @@ void execute_command_in_child_process(char *args[], char *history[]) {
 
     if (child_state == 0) {
         // child process
+
+        int redirect_location = redirection(args, ">");
+        if(redirect_location) {
+            prepare_redirect(args, redirect_location, STDOUT_FILENO, O_CREAT | O_WRONLY);
+        }
+
+        redirect_location = redirection(args, "<");
+        if(redirect_location) {
+            prepare_redirect(args, redirect_location, STDIN_FILENO, O_RDONLY);
+        }
+
         execvp(args[0], args);
     } else if (child_state == -1) {
         printf("Child process couldn't be created\n");
