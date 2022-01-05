@@ -141,7 +141,7 @@ void prepare_redirect(char *args[], int redirect_location, int dup, int flag) {
 void execute_command_in_child_process(char *args[], char *history[]) {
     if(is_history_command(args)) {
         if(history[0] != NULL) prepare_history_command(args, history);
-        else printf("No commands in history\n");
+        else printf("osh> No commands in history\n");
     }
 
     int ampersand_location = ends_with_ampersand(args);
@@ -155,19 +155,28 @@ void execute_command_in_child_process(char *args[], char *history[]) {
     if (child_state == 0) {
         // child process
 
+        // Checks if ther is output redirection
         int redirect_location = redirection(args, ">");
         if(redirect_location) {
             prepare_redirect(args, redirect_location, STDOUT_FILENO, O_CREAT | O_WRONLY);
         }
 
+        // Checks if there is input redirection
         redirect_location = redirection(args, "<");
         if(redirect_location) {
-            prepare_redirect(args, redirect_location, STDIN_FILENO, O_RDONLY);
+            if(access(args[redirect_location + 1], F_OK) == 0) {
+                // file exists
+                prepare_redirect(args, redirect_location, STDIN_FILENO, O_RDONLY);
+            } else {
+                // file doesn't exist
+                printf("osh> Error: The file \"%s\" is not found.\n", args[redirect_location + 1]);
+                return;
+            }
         }
 
         execvp(args[0], args);
     } else if (child_state == -1) {
-        printf("Child process couldn't be created\n");
+        printf("osh> Child process couldn't be created\n");
     } else {
        // parent process
         if (!ampersand_location) {
