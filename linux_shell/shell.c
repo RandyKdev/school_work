@@ -117,6 +117,15 @@ int redirection(char *args[], char *redirect) {
     return 0;
 }
 
+void shift_args_two_places_left(char *args[], int pos) {
+    for(pos; args[pos] != NULL && pos < MAX_ARGS; pos++) {
+        args[pos - 2] = (char *) malloc((strlen(args[pos]) + 1) * sizeof(char));
+        strcpy(args[pos - 2], args[pos]);
+        free(args[pos]);
+        args[pos] = NULL;
+    }
+}
+
 void prepare_redirect(char *args[], int redirect_location, int dup, int flag) {
     int fileDescriptor = open(args[redirect_location + 1], flag, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     dup2(fileDescriptor, dup);
@@ -125,6 +134,8 @@ void prepare_redirect(char *args[], int redirect_location, int dup, int flag) {
     free(args[redirect_location + 1]);
     args[redirect_location] = NULL;
     args[redirect_location + 1] = NULL;
+    
+    shift_args_two_places_left(args, redirect_location + 2);
 }
 
 void execute_command_in_child_process(char *args[], char *history[]) {
